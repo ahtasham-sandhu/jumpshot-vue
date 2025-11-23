@@ -20,7 +20,7 @@ export async function handleAuthRequest(store, requestFn, router) {
     return false
   }
 
-  const { person, access_token, expiry } = response.data
+  const { person, access_token, expiry, message } = response.data
 
   // Use the store's setAuthData method for consistency
   store.setAuthData({
@@ -28,6 +28,16 @@ export async function handleAuthRequest(store, requestFn, router) {
     accessToken: access_token,
     accessTokenExpiry: expiry,
   })
+
+  // Show success message if provided
+  if (message) {
+    Notify.create({
+      message,
+      color: 'positive',
+      position: 'top',
+      timeout: 3000,
+    })
+  }
 
   router.push('/dashboard')
   return true

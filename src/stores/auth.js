@@ -130,13 +130,13 @@ export const useAuthStore = defineStore('auth', {
     },
 
     /**
-     * Set/reset password
+     * Set password and verify account (for new users from welcome email)
      */
     async setPassword(token, uidb64, payload) {
       try {
         return await handleAuthRequest(
           this,
-          () => axios.post(`/auth/reset_password/${token}/${uidb64}`, payload),
+          () => axios.post(`/auth/set-password/${token}/${uidb64}`, payload),
           this.router,
         )
       } catch (error) {

@@ -11,7 +11,7 @@
         v-if="authStore.isAuthenticated"
       />
 
-      <q-toolbar-title> Rococo Sample </q-toolbar-title>
+      <q-toolbar-title> Jumpshot </q-toolbar-title>
 
       <div class="q-mr-md text-caption text-grey-5">v{{ version }}</div>
 
@@ -47,8 +47,18 @@ import EssentialLink from 'components/EssentialLink.vue'
 const linksList = [
   {
     title: 'Dashboard',
-    icon: 'code',
+    icon: 'dashboard',
     link: '/dashboard',
+  },
+  {
+    title: 'Todo List',
+    icon: 'checklist',
+    link: '/todo',
+  },
+  {
+    title: 'Profile',
+    icon: 'person',
+    link: '/profile',
   },
 ]
 

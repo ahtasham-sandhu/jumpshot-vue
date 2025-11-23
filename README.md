@@ -1,6 +1,6 @@
-# Rococo Sample App (rococo-sample-vue3)
+# Jumpshot
 
-A Vue3 starting point for rococo-based web apps
+A modern task management application built with Vue 3, Quasar, and Pinia
 
 ## Install the dependencies
 ```bash
