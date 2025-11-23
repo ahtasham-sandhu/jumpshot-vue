@@ -46,6 +46,11 @@ const routes = [
         meta: { requiresAuth: false },
       },
       {
+        path: '/reset-password/:token/:uidb64',
+        component: () => import('pages/ResetPasswordPage.vue'),
+        meta: { requiresAuth: false },
+      },
+      {
         path: 'auth/callback',
         component: () => import('pages/Auth/AuthCallback.vue'),
         meta: { requiresAuth: false },

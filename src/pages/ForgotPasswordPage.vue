@@ -11,10 +11,24 @@
       <q-card-section>
         <q-form @submit.prevent="onSubmit" class="full-width">
           <!-- Email -->
-          <q-input v-model="email" type="email" label="Email" outlined class="q-mb-lg" />
+          <q-input
+            v-model="email"
+            type="email"
+            label="Email"
+            outlined
+            class="q-mb-lg"
+            :disable="loading"
+          />
 
           <!-- Reset password Button -->
-          <q-btn label="Reset password" color="primary" type="submit" class="full-width" />
+          <q-btn
+            label="Send Reset Link"
+            color="primary"
+            type="submit"
+            class="full-width"
+            :loading="loading"
+            :disable="!email.trim()"
+          />
 
           <!-- Login Link -->
           <div class="text-center q-mt-md">
@@ -33,14 +47,29 @@
   
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 
+const router = useRouter()
+const authStore = useAuthStore()
 const email = ref('')
-const password = ref('')
+const loading = ref(false)
 
-// Placeholder login function
-function onSubmit() {
-  // Implement actual login logic here
-  console.log('Logging in with:', email.value, password.value)
+async function onSubmit() {
+  if (!email.value.trim()) return
+
+  loading.value = true
+  try {
+    const success = await authStore.forgotPassword(email.value)
+    if (success) {
+      // Redirect to login after successful email send
+      setTimeout(() => {
+        router.push('/login')
+      }, 2000)
+    }
+  } finally {
+    loading.value = false
+  }
 }
 </script>
   

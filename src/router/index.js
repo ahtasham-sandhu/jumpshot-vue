@@ -54,7 +54,7 @@ export default defineRouter(function (/* { store, ssrContext } */) {
 
     // Redirect authenticated users away from auth pages (login, signup, etc.)
     // This prevents authenticated users from accessing login/signup forms
-    // NOTE: We allow /set-password for account verification flow
+    // NOTE: We allow /set-password and /reset-password for account verification and password reset flows
     if (isAuthenticated && (to.path === '/login' || to.path === '/signup' || to.path === '/forgot-password')) {
       next({ path: '/dashboard' })
       return

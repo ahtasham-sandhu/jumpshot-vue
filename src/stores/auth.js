@@ -145,11 +145,11 @@ export const useAuthStore = defineStore('auth', {
     },
 
     /**
-     * Request password reset
+     * Send forgot password email
      */
-    async requestPasswordReset(email) {
+    async forgotPassword(email) {
       try {
-        const response = await axios.post('/auth/request_password_reset', { email })
+        const response = await axios.post('/auth/forgot_password', { email })
 
         if (response.data?.success) {
           Notify.create({
@@ -165,6 +165,21 @@ export const useAuthStore = defineStore('auth', {
         }
       } catch (error) {
         return this.handleApiError(error, 'Failed to send reset email')
+      }
+    },
+
+    /**
+     * Reset password using the link from forgot password email
+     */
+    async resetPassword(token, uidb64, payload) {
+      try {
+        return await handleAuthRequest(
+          this,
+          () => axios.post(`/auth/reset_password/${token}/${uidb64}`, payload),
+          this.router,
+        )
+      } catch (error) {
+        return this.handleApiError(error, 'Failed to reset password')
       }
     },
 
